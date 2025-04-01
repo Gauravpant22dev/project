@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .header{
+      display:flex;
+    }
+  </style>
+  <script>
+    var csize=20;
+    var accno, name, dob,balance;
+    var customers=[];
+    function changeFont(type){
+      if(type=="inc")
+      {
+        csize++;
+        document.querySelector(".heading").style.fontSize=csize + "px";
+      }
+      else{
+        csize--;
+        document.querySelector(".heading").style.fontSize=csize ;
+      }
+    }
+    function changedLanguage(){
+      const list=document.querySelector(".lang");
+      console.log(list.options[list.selectedIndex].innerHTML);
+      document.querySelector(".heading").style.fontFamily=list.options[list.selectedIndex].innerHTML
+    }
+    function setBalance(event){
+      balance=event.target.value;
+      console.log(balance);
+    }
+    function setName(event){
+      name=event.target.value;
+      console.log(name);
+    }
+    function setDOB(event){
+      dob=event.target.value;
+    }
+    function saveData(){
+      accno=document.querySelector(".accno").innerHTML;
+      var customer={};
+      customer.accountNo=accno;
+      customer.name=name;
+      customer.dob=dob;
+      customer.balance=balance;
+      document.querySelector(".accno").innerHTML=parseInt(accno)+1;
+      customers.push(customer)
+      console.log(customers)
+    }
+    function showMain(){
+      document.querySelector(".main").style.display="";
+      document.querySelector(".main").style.display="s";
+      
+    }
+    function setuserName(event){
+      name=event.target.value;
+      console.log(name);
+    }
+    function setuserDOB(event){
+      dob=event.target.value;
+    }
+    function showSecondMain(){
+      document.querySelector(".secondmain").style.display="block";
+    }
+    function deposit(){
+      if (customers.length > 0) {
+    const firstCustomer = customers[0];
+    console.log(firstCustomer);
+    const depositAmount = parseFloat(document.querySelector(".depositAmount").value);
+    console.log(depositAmount);a
+    
+    firstCustomer.balance += depositAmount;
+    
+    console.log("Deposit successful.");
+    console.log(firstCustomer);
+  } 
+  else {
+    console.log("No customers found.");
+  }
+}
+
+
+    
+  </script>
+</head>
+<body>
+  <div class="header">
+    <div class="heading" style= "flex:4; text-align: center; font-size:30px;color:orange">Bank Manangment</div>
+    <div class="controls" style="flex:1"><span onclick="changeFont('inc')"style="cursor:pointer">A+  </span><span onclick="changeFont('inc')"style="cursor:pointer">A-</span>
+    <span><select onchange="changedLanguage()" class="lang"><option>Language</option>
+    <option>Arial</option>
+    <option>Garamond</option>
+    <option>Times New Roman</option>
+    </select></span></div>
+  </div>
+  <div class="bankOptions">
+    <input type="radio" name="boptions" value="cna" onclick="showMain()">Create New Account</br>
+    <input type="radio" name="boptions" value="deposit" onclick="showSecondMain()">Deposit Money</br>
+    <input type="radio" name="boptions" value="Withdraw">Withdraw Money</br>
+    <input type="radio" name="boptions" value="checkBalance">checkBalance</br>
+  </div>
+  <div class="main" style="display:none; margin:auto;box-shadow:2px 2px 10px green;width:400px">
+    <label>Account No<span class="accno">101</span></label></br>
+    <input type="text" placeholder="ENTER NAME" onchange="setName(event)"><br/>
+    <input type="date" placeholder="Enter DOB" onchange="setDOB(event)"/><br/>
+    <input type="number" placeholder="ENTER BALANCE" value="500" onblur="setBalance()" onchange="setBalance"/></br>
+    <button onclick="saveData()">Create account</button>
+  </div>
+  <div class="secondmain" style="display:none; margin:auto;box-shadow:2px 2px 10px red;width:400px">
+    
+    <input type="text" placeholder="ENTER NAME" onchange="setuserName(event)"><br/>
+    <input type="date" placeholder="Enter DOB" onchange="setuserDOB(event)"/><br/>
+    <input type="number" placeholder="ENTER Amount" value="1000" onblur="" onchange=""/></br>
+    <button onclick="">Deposit</button>
+  </div>
+
+  
+</body>
+</html>
